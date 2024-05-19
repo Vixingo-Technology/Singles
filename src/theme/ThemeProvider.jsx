@@ -25,7 +25,7 @@ export const ThemeProvider = ({ children }) => {
         },
         palette: {
             mode: themeMode,
-            primary: { main: "#3F51B5" },
+            primary: { main: "#6750A4" },
             secondary: { main: "#6900FF" },
 
             // #373737
@@ -83,11 +83,16 @@ export const ThemeProvider = ({ children }) => {
             },
             subtitle1: {
                 fontSize: "14px",
-                // color: "rgba(255,255,255,0.6)",
+                color: "#313033",
             },
             subtitle2: {
                 fontSize: "12px",
                 color: "rgba(0,0,0,0.6)",
+            },
+            body1: {
+                fontSize: "13px",
+                color: "rgba(0,0,0,87)",
+                fontWeight: 600,
             },
         },
     });

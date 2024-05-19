@@ -8,7 +8,7 @@ import DataTable from "./DataTable";
 function Singles() {
     return (
         <>
-            <Box sx={{ maxWidth: "1000px", margin: "0 auto" }}>
+            <Box sx={{ maxWidth: "1100px", margin: "30px auto" }}>
                 <Box
                     sx={{
                         display: "flex",
@@ -63,8 +63,10 @@ function Singles() {
                         </Box>
                     </Box>
                 </Box>
+            </Box>
+            <Box sx={{ maxWidth: "1300px", margin: "0 auto" }}>
                 <SingleTable />
-                <DataTable />
+                {/* <DataTable /> */}
             </Box>
         </>
     );
