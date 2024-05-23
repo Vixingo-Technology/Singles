@@ -5,7 +5,10 @@ import { Search } from "@mui/icons-material";
 import ToggleButton from "./buttons/ToggleButton";
 import SingleTable from "./SingleTable";
 import DataTable from "./DataTable";
+import VirtualTable from "./VirtualTable";
+import EditBox from "./EditBox";
 function Singles() {
+    const [open, setOpen] = React.useState(false);
     return (
         <>
             <Box sx={{ maxWidth: "1100px", margin: "30px auto" }}>
@@ -65,8 +68,10 @@ function Singles() {
                 </Box>
             </Box>
             <Box sx={{ maxWidth: "1300px", margin: "0 auto" }}>
-                <SingleTable />
+                {/* <SingleTable /> */}
                 {/* <DataTable /> */}
+                <VirtualTable setOpen={setOpen} />
+                <EditBox open={open} setOpen={setOpen} />
             </Box>
         </>
     );

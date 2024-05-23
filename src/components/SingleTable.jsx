@@ -66,7 +66,6 @@ function SingleTable() {
 
     React.useEffect(() => {
         getwords();
-
         console.log(words);
     }, []);
 

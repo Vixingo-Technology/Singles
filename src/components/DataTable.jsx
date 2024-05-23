@@ -11,8 +11,9 @@ import {
 import { Button, IconButton } from "@mui/material";
 
 export default function DataTable() {
-    const total_results = 100;
-    const start_word = "bar";
+    const total_results = 50;
+    const [start_word, setStart_word] = React.useState("bar");
+
     const api = "https://api-zcg7jiz4mq-uc.a.run.app/words";
 
     const handleEdit = (row) => {
@@ -31,9 +32,10 @@ export default function DataTable() {
         axios
             .get(finalURL)
             .then((res) => {
-                const apiRes = res?.data;
-                console.log("api response", apiRes);
-                setWords(apiRes);
+                const apiRes = res?.data.words;
+                const margeData = [...words, ...apiRes];
+                setWords(margeData);
+                setStart_word(apiRes[apiRes.length - 1].name);
             })
             .catch((err) => {
                 console.log("error while loading words", err);
@@ -42,7 +44,8 @@ export default function DataTable() {
 
     React.useEffect(() => {
         getwords();
-    });
+        console.log(words);
+    }, []);
 
     const columns = [
         {
@@ -184,6 +187,8 @@ export default function DataTable() {
             Syn3: 10,
             Syn4: 10,
             Syn5: 15,
+            Mod: "modified",
+            adjust: true,
         },
 
         // { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
@@ -198,7 +203,7 @@ export default function DataTable() {
     ];
 
     return (
-        <div style={{ height: 500, width: "100%" }}>
+        <div style={{ height: 300, width: "100%" }}>
             <DataGrid
                 rows={rows}
                 columns={columns}
