@@ -8,7 +8,6 @@ import DataTable from "./DataTable";
 import VirtualTable from "./VirtualTable";
 import EditBox from "./EditBox";
 function Singles() {
-    const [open, setOpen] = React.useState(false);
     return (
         <>
             <Box sx={{ maxWidth: "1100px", margin: "30px auto" }}>
@@ -70,8 +69,7 @@ function Singles() {
             <Box sx={{ maxWidth: "1300px", margin: "0 auto" }}>
                 {/* <SingleTable /> */}
                 {/* <DataTable /> */}
-                <VirtualTable setOpen={setOpen} />
-                <EditBox open={open} setOpen={setOpen} />
+                <VirtualTable />
             </Box>
         </>
     );

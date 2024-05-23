@@ -10,6 +10,7 @@ import { TableVirtuoso } from "react-virtuoso";
 import axios from "axios";
 import { IconButton, Typography } from "@mui/material";
 import { ContentCopy, OpenInNew } from "@mui/icons-material";
+import EditBox from "./EditBox";
 
 function createData(
     name,
@@ -142,7 +143,7 @@ function fixedHeaderContent() {
     );
 }
 
-export default function VirtualTable({ setOpen }) {
+export default function VirtualTable({}) {
     const totalWords = 12039;
 
     const total_results = 50;
@@ -235,7 +236,7 @@ export default function VirtualTable({ setOpen }) {
     });
 
     //dialog
-
+    const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -297,6 +298,7 @@ export default function VirtualTable({ setOpen }) {
                 fixedHeaderContent={fixedHeaderContent}
                 itemContent={rowContent}
             />
+            <EditBox open={open} setOpen={setOpen} />
         </Paper>
     );
 }
