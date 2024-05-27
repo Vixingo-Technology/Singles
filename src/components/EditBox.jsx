@@ -9,17 +9,25 @@ import {
     Slide,
     Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import WordDetails from "./WordDetails";
+import DOMPurify from "dompurify";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function EditBox({ setOpen, open }) {
+function EditBox({ setOpen, open, rowData }) {
+    // const [rowData, setRowData] = useState();
+    // console.log(rowData, "rowdata");
     const handleClose = () => {
         setOpen(false);
     };
+
+    function createMarkup() {
+        return { __html: rowData?.obj.phonetics };
+    }
+
     return (
         <React.Fragment>
             <Dialog
@@ -34,24 +42,34 @@ function EditBox({ setOpen, open }) {
                 }}
             >
                 <DialogTitle
+                    component={"div"}
                     sx={{
                         display: "flex",
                         justifyContent: "space-between",
                     }}
                 >
-                    <Box>
-                        {" "}
-                        <Typography variant="h3">hit</Typography>
-                        <Typography sx={{ color: "rgba(0,0,0,0.6)" }}>
-                            / hit /
+                    <div>
+                        <Typography variant="h3">{rowData?.name}</Typography>
+
+                        <Typography
+                            sx={{ color: "rgba(0,0,0,0.6)" }}
+                            component={"div"}
+                        >
+                            <div
+                                style={{
+                                    fontSize: "16px",
+                                    color: "rgba(0,0,0,0.6)",
+                                }}
+                                dangerouslySetInnerHTML={createMarkup()}
+                            />
                         </Typography>
-                    </Box>
+                    </div>
                     <Box sx={{ textAlign: "right" }}>
                         <Typography variant="subtitle1">
-                            <b>13</b> meanings{" "}
+                            <b>{rowData?.totalMeanings}</b> meanings{" "}
                         </Typography>
                         <Typography variant="subtitle1">
-                            <b>190</b> synonyms
+                            <b>{rowData?.totalSynonyms}</b> synonyms
                         </Typography>
                     </Box>
                 </DialogTitle>
@@ -60,8 +78,18 @@ function EditBox({ setOpen, open }) {
                         id="alert-dialog-slide-description"
                         sx={{ width: "100%" }}
                     >
-                        <WordDetails index={0} />
-                        <WordDetails index={1} />
+                        {rowData?.obj.definitions.map((define, index) => {
+                            return (
+                                <>
+                                    <WordDetails
+                                        index={index}
+                                        define={define}
+                                    />
+                                </>
+                            );
+                        })}
+                        {/* <WordDetails index={1} />
+                        <WordDetails index={2} /> */}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions

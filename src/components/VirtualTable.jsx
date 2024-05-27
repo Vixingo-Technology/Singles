@@ -21,7 +21,8 @@ function createData(
     totalSecondPositionSynonyms,
     totalThirdPositionSynonyms,
     totalForthPositionSynonyms,
-    totalFifthPositionSynonyms
+    totalFifthPositionSynonyms,
+    obj
 ) {
     return {
         name,
@@ -33,6 +34,7 @@ function createData(
         totalThirdPositionSynonyms,
         totalForthPositionSynonyms,
         totalFifthPositionSynonyms,
+        obj,
     };
 }
 
@@ -231,14 +233,18 @@ export default function VirtualTable({}) {
             totalSecondPositionSynonyms,
             totalThirdPositionSynonyms,
             totalForthPositionSynonyms,
-            totalFifthPositionSynonyms
+            totalFifthPositionSynonyms,
+            w
         );
     });
 
     //dialog
     const [open, setOpen] = React.useState(false);
-    const handleClickOpen = () => {
+    const [rowData, setRowData] = React.useState();
+
+    const handleClickOpen = (row) => {
         setOpen(true);
+        setRowData(row);
     };
 
     // Row content
@@ -256,7 +262,9 @@ export default function VirtualTable({}) {
                         <IconButton
                             size="small"
                             className="invisible group-hover:visible "
-                            onClick={handleClickOpen}
+                            onClick={() => {
+                                handleClickOpen(row);
+                            }}
                         >
                             <OpenInNew color="primary" fontSize="24px" />
                         </IconButton>
@@ -298,7 +306,7 @@ export default function VirtualTable({}) {
                 fixedHeaderContent={fixedHeaderContent}
                 itemContent={rowContent}
             />
-            <EditBox open={open} setOpen={setOpen} />
+            <EditBox open={open} setOpen={setOpen} rowData={rowData} />
         </Paper>
     );
 }
