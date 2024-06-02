@@ -11,6 +11,7 @@ import axios from "axios";
 import { IconButton, Typography } from "@mui/material";
 import { ContentCopy, OpenInNew } from "@mui/icons-material";
 import EditBox from "./EditBox";
+import { useSelector } from "react-redux";
 
 function createData(
     name,
@@ -146,6 +147,8 @@ function fixedHeaderContent() {
 }
 
 export default function VirtualTable({}) {
+    const RedWord = useSelector((state) => state.words.wordsList);
+    console.log(RedWord, "red word");
     const totalWords = 12039;
 
     const total_results = 50;

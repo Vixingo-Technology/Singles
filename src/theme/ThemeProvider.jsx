@@ -92,7 +92,6 @@ export const ThemeProvider = ({ children }) => {
             body1: {
                 fontSize: "13px",
                 color: "rgba(0,0,0,87)",
-                fontWeight: 600,
             },
         },
     });

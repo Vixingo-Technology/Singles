@@ -1,16 +1,39 @@
-import { Box, IconButton, Typography } from "@mui/material";
-import React from "react";
+import { Box, IconButton, TextField, Typography } from "@mui/material";
+import React, { useState } from "react";
 import GradButton from "./buttons/GradButton";
-import { AddCircleOutline, Delete, Edit, Menu } from "@mui/icons-material";
+import {
+    AddCircleOutline,
+    Check,
+    CloseRounded,
+    Delete,
+    Edit,
+    Menu,
+} from "@mui/icons-material";
 import GLButton from "./buttons/GLButton";
+import ChildModal from "./modals/ChildModal";
 
 function WordDetails({ index, define }) {
+    const [editing, setEditing] = useState(false);
+
+    const handleEditing = () => {
+        setEditing(!editing);
+    };
+
+    const [group, setGroup] = useState({
+        pos: define?.part_of_speech,
+        meaning: define?.meaning,
+    });
+
     return (
         <>
             <Box sx={{ mb: 2 }}>
                 {" "}
                 <Box
-                    sx={{ display: "flex", alignItems: "center" }}
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        position: "relative",
+                    }}
                     className="group"
                 >
                     <Typography
@@ -21,13 +44,16 @@ function WordDetails({ index, define }) {
                     >
                         {define?.part_of_speech}
                     </Typography>
-                    <Typography sx={{ color: "rgba(0,0,0,0.87)" }}>
+                    <Typography
+                        sx={{ color: "rgba(0,0,0,0.87)", fontWeight: "600" }}
+                    >
                         {" "}
                         &nbsp;{define?.meaning}
                     </Typography>
                     <IconButton
                         size="small"
                         className="invisible group-hover:visible"
+                        onClick={handleEditing}
                     >
                         <Edit fontSize="small" color="primary" />
                     </IconButton>
@@ -37,6 +63,60 @@ function WordDetails({ index, define }) {
                     >
                         <Delete fontSize="small" color="error" />
                     </IconButton>
+
+                    <Box
+                        sx={{
+                            display: editing ? "flex" : "none",
+                            position: "absolute",
+                            left: 0,
+                            top: 35,
+                            borderRadius: "16px",
+                            boxShadow: 2,
+                            bgcolor: "#fff",
+                            zIndex: 10,
+                            width: "350px",
+                            flexDirection: "column",
+                            gap: 1,
+                            padding: "12px",
+                        }}
+                    >
+                        <TextField
+                            id="outlined-basic"
+                            label="Parts of Speech"
+                            variant="outlined"
+                            size="small"
+                            value={group.pos}
+                            onChange={(e) => {
+                                setGroup({ ...group, pos: e.target.value });
+                            }}
+                            sx={{
+                                width: "130px",
+                            }}
+                        />
+                        <TextField
+                            id="outlined-basic"
+                            label="Meaning"
+                            variant="outlined"
+                            size="small"
+                            fullWidth
+                            value={group.meaning}
+                            onChange={(e) => {
+                                setGroup({ ...group, meaning: e.target.value });
+                            }}
+                        />
+                        <Box sx={{ textAlign: "center" }}>
+                            <IconButton
+                                onClick={() => {
+                                    setEditing(!editing);
+                                }}
+                            >
+                                <CloseRounded />
+                            </IconButton>
+                            <IconButton>
+                                <Check color="primary" />
+                            </IconButton>
+                        </Box>
+                    </Box>
                 </Box>
                 <Box
                     sx={{
