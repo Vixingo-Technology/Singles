@@ -24,6 +24,30 @@ function WordDetails({ index, define }) {
         meaning: define?.meaning,
     });
 
+    // Adding new words
+    const [newWord, setNewWord] = useState(false);
+    const [newValue, setNewValue] = useState();
+
+    const handleBlur = () => {
+        setNewWord(!newWord);
+        setNewValue(null);
+    };
+
+    const handleChange = (e) => {
+        setNewValue(e.target.value);
+    };
+
+    const handleUpdatedWordKeyPress = (event) => {
+        if (event.key === "Enter") {
+            handleSaveUpdatedWord();
+        }
+    };
+    const handleSaveUpdatedWord = () => {
+        define.synonyms.push({ word: newValue, color: "white" });
+        setNewWord(!newWord);
+        setNewValue(null);
+    };
+
     return (
         <>
             <Box sx={{ mb: 2 }}>
@@ -121,7 +145,6 @@ function WordDetails({ index, define }) {
                 <Box
                     sx={{
                         display: "flex",
-
                         justifyContent: "space-between",
                     }}
                 >
@@ -136,18 +159,40 @@ function WordDetails({ index, define }) {
                     >
                         {define?.synonyms.map((synonym) => {
                             return (
-                                <GradButton index={index}>
+                                <GradButton index={index} tag={synonym.color}>
                                     {synonym.word}
                                 </GradButton>
                             );
                         })}
 
-                        <IconButton size="small" sx={{ p: 0 }}>
-                            <AddCircleOutline
-                                fontSize="medium"
-                                color="primary"
+                        {newWord ? (
+                            <input
+                                style={{
+                                    border: "1px solid #200",
+                                    borderRadius: "16px",
+                                    padding: "2px 10px",
+                                    maxWidth: 90,
+                                }}
+                                placeholder="Word"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={newValue}
+                                onKeyPress={handleUpdatedWordKeyPress}
                             />
-                        </IconButton>
+                        ) : (
+                            <IconButton
+                                size="small"
+                                sx={{ p: 0 }}
+                                onClick={() => {
+                                    setNewWord(!newWord);
+                                }}
+                            >
+                                <AddCircleOutline
+                                    fontSize="medium"
+                                    color="primary"
+                                />
+                            </IconButton>
+                        )}
                     </Box>
                     <Box mt={1}>
                         <IconButton>

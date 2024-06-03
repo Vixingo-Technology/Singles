@@ -2,16 +2,16 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
-import { TextField } from "@mui/material";
+import { Chip, TextField } from "@mui/material";
 
 const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+
     bgcolor: "background.paper",
-    border: "2px solid #000",
+
     boxShadow: 24,
     pt: 2,
     px: 4,
@@ -19,8 +19,9 @@ const style = {
     borderRadius: "12px",
 };
 
-export default function ChildModal() {
+export default function ChildModal({ wordName }) {
     const [open, setOpen] = React.useState(false);
+    const [conValue, setConValue] = React.useState("");
     const handleOpen = () => {
         setOpen(true);
     };
@@ -28,32 +29,95 @@ export default function ChildModal() {
         setOpen(false);
     };
 
+    const handleChange = (e) => {};
+
     return (
         <React.Fragment>
-            <Button onClick={handleOpen}>Open Child Modal</Button>
+            <Button
+                onClick={handleOpen}
+                sx={{
+                    width: "100%",
+                    borderRadius: "100px",
+                    color: "#6750A4",
+                    backgroundColor: "#fff",
+                    boxShadow: "0 2px 4px 1px #999999",
+                }}
+            >
+                Save
+            </Button>
+
             <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="child-modal-title"
                 aria-describedby="child-modal-description"
             >
-                <Box sx={{ ...style, width: 200 }}>
-                    <h2 id="child-modal-title">Text in a child modal</h2>
-                    <TextField
-                        id="outlined-basic"
-                        label="Parts of Speech"
-                        variant="outlined"
-                        size="small"
-                        fontWeight="light"
-                    />
-                    <TextField
-                        id="outlined-basic"
-                        label="Meaning"
-                        variant="outlined"
-                        size="small"
-                        sx={{ fontWeight: 300 }}
-                    />{" "}
-                    <Button onClick={handleClose}>Close Child Modal</Button>
+                <Box sx={{ ...style, width: 430 }}>
+                    <Box sx={{ textAlign: "center" }}>
+                        <Chip
+                            label={wordName}
+                            variant="outlined"
+                            sx={{
+                                color: "#203BC8",
+                                fontSize: "18px",
+                                padding: "2px 10px",
+                                fontWeight: "bold",
+                            }}
+                        />
+                    </Box>
+                    <Box sx={{ py: 3 }}>
+                        <TextField
+                            variant="outlined"
+                            label="Edit Summary"
+                            multiline
+                            rows={6}
+                            fullWidth
+                        />
+                    </Box>
+                    <Box sx={{ textAlign: "center", pb: 3 }}>
+                        <input
+                            placeholder="Retype word to confirm"
+                            style={{
+                                padding: "2px 10px",
+                                border: "1px solid #999999",
+                                borderRadius: "4px",
+                            }}
+                            onChange={(e) => {
+                                setConValue(e.target.value);
+                            }}
+                            value={conValue}
+                        />
+                    </Box>
+                    <Box sx={{ display: "flex", gap: 3 }}>
+                        <Button
+                            onClick={handleClose}
+                            sx={{
+                                width: "100%",
+                                borderRadius: "100px",
+                                color: "#625B71",
+                                backgroundColor: "#fff",
+                                boxShadow: "0 2px 4px 1px #999999",
+                            }}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={handleClose}
+                            color="primary"
+                            variant="contained"
+                            disabled={conValue === wordName ? false : true}
+                            sx={{
+                                width: "100%",
+                                borderRadius: "100px",
+                                // color: "#625B71",
+                                // backgroundColor: "#fff",
+
+                                boxShadow: "0 2px 4px 1px #999999",
+                            }}
+                        >
+                            Confirm
+                        </Button>
+                    </Box>
                 </Box>
             </Modal>
         </React.Fragment>

@@ -1,5 +1,5 @@
 import { Box, InputAdornment, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Search } from "@mui/icons-material";
 import ToggleButton from "./buttons/ToggleButton";
@@ -7,7 +7,54 @@ import SingleTable from "./SingleTable";
 import DataTable from "./DataTable";
 import VirtualTable from "./VirtualTable";
 import EditBox from "./EditBox";
+import axios from "axios";
+
 function Singles() {
+    // api calling
+    const total_results = 50;
+    const [start_word, setStart_word] = React.useState("A");
+    const api = "https://api-zcg7jiz4mq-uc.a.run.app/words";
+    const [words, setWords] = React.useState([]);
+
+    const getwords = () => {
+        const queryParam = "?offset=" + start_word + "&limit=" + total_results;
+        const finalURL = api + queryParam;
+
+        axios
+            .get(finalURL)
+            .then((res) => {
+                const apiRes = res?.data.words;
+                const margeData = [...words, ...apiRes];
+                setWords(margeData);
+                setStart_word(apiRes[apiRes.length - 1].name);
+            })
+            .catch((err) => {
+                console.log("error while loading words", err);
+            });
+    };
+
+    React.useEffect(() => {
+        getwords();
+        // console.log(words[0].name);
+    });
+
+    // search
+    const [searchTerm, setSearchTerm] = React.useState("");
+    const [searchResults, setSearchResults] = React.useState(words);
+    const handleSearch = (e) => {
+        setSearchTerm(e.target.value);
+    };
+    useEffect(() => {
+        let searchedData = words?.filter((e) => {
+            const lowerCaseTitle = e.name?.toLowerCase();
+            if (lowerCaseTitle.includes(searchTerm?.toLowerCase())) {
+                return true;
+            }
+            return false;
+        });
+        setSearchResults(searchedData);
+    }, [searchTerm, words]);
+
     return (
         <>
             <Box sx={{ maxWidth: "1100px", margin: "30px auto" }}>
@@ -54,6 +101,8 @@ function Singles() {
                                     ),
                                 }}
                                 variant="outlined"
+                                value={searchTerm}
+                                onChange={(e) => handleSearch(e)}
                             />
                         </Box>{" "}
                         <Box sx={{ display: "flex", gap: "12px" }}>
@@ -61,7 +110,7 @@ function Singles() {
                             <ToggleButton>Verb</ToggleButton>
                             <ToggleButton>Adj</ToggleButton>
                             <ToggleButton>Adv</ToggleButton>
-                            <ToggleButton>Other</ToggleButton>
+                            <ToggleButton>{searchTerm}</ToggleButton>
                         </Box>
                     </Box>
                 </Box>
@@ -69,7 +118,7 @@ function Singles() {
             <Box sx={{ maxWidth: "1300px", margin: "0 auto" }}>
                 {/* <SingleTable /> */}
                 {/* <DataTable /> */}
-                <VirtualTable />
+                <VirtualTable words={searchResults} />
             </Box>
         </>
     );

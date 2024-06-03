@@ -12,6 +12,7 @@ import { IconButton, Typography } from "@mui/material";
 import { ContentCopy, OpenInNew } from "@mui/icons-material";
 import EditBox from "./EditBox";
 import { useSelector } from "react-redux";
+import CopyButton from "./buttons/CopyButton";
 
 function createData(
     name,
@@ -61,7 +62,7 @@ const columns = [
         dataKey: "totalMeanings",
     },
     {
-        width: 80,
+        width: 90,
         label: "# 1st mean",
         dataKey: "totalFirstPositionSynonyms",
     },
@@ -146,45 +147,11 @@ function fixedHeaderContent() {
     );
 }
 
-export default function VirtualTable({}) {
-    const RedWord = useSelector((state) => state.words.wordsList);
-    console.log(RedWord, "red word");
-    const totalWords = 12039;
-
-    const total_results = 50;
-    const [start_word, setStart_word] = React.useState("A");
-    const api = "https://api-zcg7jiz4mq-uc.a.run.app/words";
-
+export default function VirtualTable({ words }) {
     const [mod, setMod] = React.useState("opened");
     const [adjust, setAdjust] = React.useState(true);
-    const [words, setWords] = React.useState([]);
 
     // API calling
-    const getwords = () => {
-        const queryParam = "?offset=" + start_word + "&limit=" + total_results;
-        const finalURL = api + queryParam;
-
-        axios
-            .get(finalURL)
-            .then((res) => {
-                const apiRes = res?.data.words;
-                const margeData = [...words, ...apiRes];
-                setWords(margeData);
-                setStart_word(apiRes[apiRes.length - 1].name);
-            })
-            .catch((err) => {
-                console.log("error while loading words", err);
-            });
-    };
-
-    React.useEffect(() => {
-        getwords();
-        // console.log(words[0].name);
-    });
-
-    const fetchMoreData = () => {
-        getwords();
-    };
 
     // table setting
     // const rows = Array.from({ length: 200 }, (_, index) => {
@@ -201,31 +168,78 @@ export default function VirtualTable({}) {
         // total meaning
         const totalMeanings = w.definitions.length;
 
-        const totalFirstPositionSynonyms = w.definitions[0].synonyms.length;
+        // const totalFirstPositionSynonyms = w.definitions[0].synonyms.length;
 
-        const totalSecondPositionSynonyms = w.definitions[1]
-            ? w.definitions[1].synonyms.length
-            : 0;
+        // const totalSecondPositionSynonyms = w.definitions[1]
+        //     ? w.definitions[1].synonyms.length
+        //     : 0;
 
-        const totalThirdPositionSynonyms = w.definitions[2]
-            ? w.definitions[2].synonyms.length
-            : 0;
-        const totalForthPositionSynonyms = w.definitions[3]
-            ? w.definitions[3].synonyms.length
-            : 0;
-        const totalFifthPositionSynonyms = w.definitions[4]
-            ? w.definitions[4].synonyms.length
-            : 0;
+        // const totalThirdPositionSynonyms = w.definitions[2]
+        //     ? w.definitions[2].synonyms.length
+        //     : 0;
+        // const totalForthPositionSynonyms = w.definitions[3]
+        //     ? w.definitions[3].synonyms.length
+        //     : 0;
+        // const totalFifthPositionSynonyms = w.definitions[4]
+        //     ? w.definitions[4].synonyms.length
+        //     : 0;
+
         // Check if a second definition exists
-        // let totalSecondPositionSynonyms;
-        // if (w.definitions[1]) {
-        //     const secondDefinition = w.definitions[1];
-        //     const partOfSpeech = secondDefinition.part_of_speech;
-        //     const totalSynonyms = secondDefinition.synonyms.length;
-        //     totalSecondPositionSynonyms = totalSynonyms + " " + partOfSpeech;
-        // } else {
-        //     totalSecondPositionSynonyms = 0;
-        // }
+        let totalFirstPositionSynonyms;
+
+        if (w.definitions[0]) {
+            let Definition = w.definitions[0];
+            let partOfSpeech = Definition.part_of_speech;
+            let totalSynonyms = Definition.synonyms.length;
+            totalFirstPositionSynonyms = totalSynonyms + " " + partOfSpeech;
+        } else {
+            totalFirstPositionSynonyms = 0;
+        }
+        // Check if a second definition exists
+        let totalSecondPositionSynonyms;
+
+        if (w.definitions[1]) {
+            let Definition = w.definitions[1];
+            let partOfSpeech = Definition.part_of_speech;
+            let totalSynonyms = Definition.synonyms.length;
+            totalSecondPositionSynonyms = totalSynonyms + " " + partOfSpeech;
+        } else {
+            totalSecondPositionSynonyms = 0;
+        }
+        // Check if a Third definition exists
+        let totalThirdPositionSynonyms;
+
+        if (w.definitions[2]) {
+            let Definition = w.definitions[2];
+            let partOfSpeech = Definition.part_of_speech;
+            let totalSynonyms = Definition.synonyms.length;
+            totalThirdPositionSynonyms = totalSynonyms + " " + partOfSpeech;
+        } else {
+            totalThirdPositionSynonyms = 0;
+        }
+
+        // Check if a Forth definition exists
+        let totalForthPositionSynonyms;
+
+        if (w.definitions[3]) {
+            let Definition = w.definitions[3];
+            let partOfSpeech = Definition.part_of_speech;
+            let totalSynonyms = Definition.synonyms.length;
+            totalForthPositionSynonyms = totalSynonyms + " " + partOfSpeech;
+        } else {
+            totalForthPositionSynonyms = 0;
+        }
+        // Check if a Fifth definition exists
+        let totalFifthPositionSynonyms;
+
+        if (w.definitions[4]) {
+            let Definition = w.definitions[4];
+            let partOfSpeech = Definition.part_of_speech;
+            let totalSynonyms = Definition.synonyms.length;
+            totalFifthPositionSynonyms = totalSynonyms + " " + partOfSpeech;
+        } else {
+            totalFifthPositionSynonyms = 0;
+        }
 
         return createData(
             w.name,
@@ -285,7 +299,7 @@ export default function VirtualTable({}) {
                             size="small"
                             className="invisible group-hover:visible"
                         >
-                            <ContentCopy fontSize="24px" />
+                            <CopyButton word={row.name} />
                         </IconButton>
                     </div>
                 </TableCell>

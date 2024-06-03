@@ -12,6 +12,7 @@ import {
 import React, { useState } from "react";
 import WordDetails from "./WordDetails";
 import DOMPurify from "dompurify";
+import ChildModal from "./modals/ChildModal";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -107,18 +108,8 @@ function EditBox({ setOpen, open, rowData }) {
                     >
                         Cancel
                     </Button>
-                    <Button
-                        onClick={handleClose}
-                        sx={{
-                            width: "100%",
-                            borderRadius: "100px",
-                            color: "#6750A4",
-                            backgroundColor: "#fff",
-                            boxShadow: "0 2px 4px 1px #999999",
-                        }}
-                    >
-                        Save
-                    </Button>
+
+                    <ChildModal wordName={rowData?.name} />
                 </DialogActions>
             </Dialog>
         </React.Fragment>
