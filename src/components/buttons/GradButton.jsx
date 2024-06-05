@@ -5,6 +5,7 @@ import { Check } from "@mui/icons-material";
 function GradButton({ children, index, tag }) {
     const handleRemove = () => {
         alert("remove clicked");
+        // remove the tag from the array
     };
     return (
         <>

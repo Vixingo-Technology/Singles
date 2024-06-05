@@ -109,7 +109,7 @@ function EditBox({ setOpen, open, rowData }) {
                         Cancel
                     </Button>
 
-                    <ChildModal wordName={rowData?.name} />
+                    <ChildModal wordName={rowData?.name} rowData={rowData} />
                 </DialogActions>
             </Dialog>
         </React.Fragment>

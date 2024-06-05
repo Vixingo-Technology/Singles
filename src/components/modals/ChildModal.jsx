@@ -31,6 +31,28 @@ export default function ChildModal({ wordName }) {
 
     const handleChange = (e) => {};
 
+    const [addedArray, setAddedArray] = React.useState(["noting", "as"]);
+    const [removedArray, setRemovedArray] = React.useState([]);
+    const [WordDetails, setWordDetails] = React.useState();
+
+    // const findWord = (wordName) => {
+    //     fetch(`https://api.datamuse.com/words?rel_rhy=${wordName}`)
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             console.log(data, "data");
+    //             setWordDetails(data);
+    //         });
+    // };
+
+    const [finalValue, setFinalValue] = React.useState(
+        `ADDED:\n${addedArray}\nREMOVED:${removedArray}\n\nEDITED`
+    );
+
+    React.useEffect(() => {
+        // findWord(wordName);
+        console.log(WordDetails, "WordDetails");
+    }, [wordName]);
+
     return (
         <React.Fragment>
             <Button
@@ -72,6 +94,10 @@ export default function ChildModal({ wordName }) {
                             multiline
                             rows={6}
                             fullWidth
+                            value={finalValue}
+                            onChange={(e) => {
+                                setFinalValue(e.target.value);
+                            }}
                         />
                     </Box>
                     <Box sx={{ textAlign: "center", pb: 3 }}>

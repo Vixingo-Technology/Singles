@@ -1,5 +1,5 @@
 import { Box, InputAdornment, TextField, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Search } from "@mui/icons-material";
 import ToggleButton from "./buttons/ToggleButton";
@@ -8,13 +8,14 @@ import DataTable from "./DataTable";
 import VirtualTable from "./VirtualTable";
 import EditBox from "./EditBox";
 import axios from "axios";
-
+import { WordContext } from "../contexts/WordContext";
 function Singles() {
     // api calling
     const total_results = 50;
     const [start_word, setStart_word] = React.useState("A");
     const api = "https://api-zcg7jiz4mq-uc.a.run.app/words";
-    const [words, setWords] = React.useState([]);
+    // const [words, setWords] = React.useState([]);
+    const { words, setWords } = useContext(WordContext);
 
     const getwords = () => {
         const queryParam = "?offset=" + start_word + "&limit=" + total_results;
@@ -41,6 +42,7 @@ function Singles() {
     // search
     const [searchTerm, setSearchTerm] = React.useState("");
     const [searchResults, setSearchResults] = React.useState(words);
+    const [type, setType] = useState([]);
     const handleSearch = (e) => {
         setSearchTerm(e.target.value);
     };
@@ -54,6 +56,10 @@ function Singles() {
         });
         setSearchResults(searchedData);
     }, [searchTerm, words]);
+
+    //multi filter
+    let filters = ["noun", "adverb", "verb", "adjective", "other"];
+    console.log(type);
 
     return (
         <>
@@ -106,8 +112,12 @@ function Singles() {
                             />
                         </Box>{" "}
                         <Box sx={{ display: "flex", gap: "12px" }}>
-                            <ToggleButton>Nouns</ToggleButton>
-                            <ToggleButton>Verb</ToggleButton>
+                            <ToggleButton setType={setType} type={type}>
+                                Nouns
+                            </ToggleButton>
+                            <ToggleButton setType={setType} type={type}>
+                                Verb
+                            </ToggleButton>
                             <ToggleButton>Adj</ToggleButton>
                             <ToggleButton>Adv</ToggleButton>
                             <ToggleButton>{searchTerm}</ToggleButton>

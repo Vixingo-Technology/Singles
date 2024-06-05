@@ -2,8 +2,13 @@ import { Check } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import React, { useState } from "react";
 
-function ToggleButton({ children }) {
+function ToggleButton({ children, setType, type }) {
     const [check, setCheck] = useState(false);
+    const handleClick = () => {
+        setCheck(!check);
+        setType([...type, children]);
+    };
+
     return (
         <>
             <Button
@@ -21,9 +26,7 @@ function ToggleButton({ children }) {
                 }}
                 startIcon={check ? <Check /> : ""}
                 size="small"
-                onClick={() => {
-                    setCheck(!check);
-                }}
+                onClick={handleClick}
             >
                 {children}
             </Button>
