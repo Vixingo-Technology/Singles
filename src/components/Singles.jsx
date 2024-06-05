@@ -54,12 +54,30 @@ function Singles() {
             }
             return false;
         });
+
         setSearchResults(searchedData);
     }, [searchTerm, words]);
 
     //multi filter
-    let filters = ["noun", "adverb", "verb", "adjective", "other"];
-    console.log(type);
+    const [filters, setFilters] = useState([
+        "noun",
+        "adverb",
+        "verb",
+        "adjective",
+        "other",
+    ]);
+    useEffect(() => {
+        let filteredData = words?.filter((e) => {
+            if (type.length === 0) {
+                return true;
+            }
+            if (type.includes(e.type)) {
+                return true;
+            }
+            return false;
+        });
+        setSearchResults(filteredData);
+    }, [type, words]);
 
     return (
         <>
@@ -115,12 +133,10 @@ function Singles() {
                             <ToggleButton setType={setType} type={type}>
                                 Nouns
                             </ToggleButton>
-                            <ToggleButton setType={setType} type={type}>
-                                Verb
-                            </ToggleButton>
+                            <ToggleButton>Verb</ToggleButton>
                             <ToggleButton>Adj</ToggleButton>
                             <ToggleButton>Adv</ToggleButton>
-                            <ToggleButton>{searchTerm}</ToggleButton>
+                            <ToggleButton>other</ToggleButton>
                         </Box>
                     </Box>
                 </Box>

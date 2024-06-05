@@ -31,7 +31,7 @@ export default function ChildModal({ wordName }) {
 
     const handleChange = (e) => {};
 
-    const [addedArray, setAddedArray] = React.useState(["noting", "as"]);
+    const [addedArray, setAddedArray] = React.useState([""]);
     const [removedArray, setRemovedArray] = React.useState([]);
     const [WordDetails, setWordDetails] = React.useState();
 
