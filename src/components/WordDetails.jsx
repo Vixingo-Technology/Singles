@@ -11,8 +11,10 @@ import {
 } from "@mui/icons-material";
 import GLButton from "./buttons/GLButton";
 import ChildModal from "./modals/ChildModal";
+import { deleteDefinition } from "../api/api";
 
-function WordDetails({ index, define }) {
+function WordDetails({ index, define, onDeleteDefinition }) {
+    // const [define, setDefine] = useState(def);
     const [editing, setEditing] = useState(false);
 
     const handleEditing = () => {
@@ -46,6 +48,24 @@ function WordDetails({ index, define }) {
         define.synonyms.push({ word: newValue, color: "white" });
         setNewWord(!newWord);
         setNewValue(null);
+    };
+    // Update defination
+
+    const handleUpdateSubmit = (e) => {
+        e.preventDefault();
+        onUpdateDefinition(updateDefinitionId, {
+            meaning: updateMeaning,
+            part_of_speech: updatePartOfSpeech,
+        });
+        setUpdateDefinitionId("");
+        setUpdateMeaning("");
+        setUpdatePartOfSpeech("");
+    };
+
+    // delete defination
+
+    const handleDelete = (definitionId) => {
+        onDeleteDefinition(definitionId);
     };
 
     return (
@@ -84,6 +104,7 @@ function WordDetails({ index, define }) {
                     <IconButton
                         size="small"
                         className="invisible group-hover:visible"
+                        onClick={() => handleDelete(define?.id)}
                     >
                         <Delete fontSize="small" color="error" />
                     </IconButton>
@@ -136,7 +157,11 @@ function WordDetails({ index, define }) {
                             >
                                 <CloseRounded />
                             </IconButton>
-                            <IconButton>
+                            <IconButton
+                                onClick={() => {
+                                    handleUpdateSubmit;
+                                }}
+                            >
                                 <Check color="primary" />
                             </IconButton>
                         </Box>
@@ -157,10 +182,10 @@ function WordDetails({ index, define }) {
                             my: 1.5,
                         }}
                     >
-                        {define?.synonyms.map((synonym) => {
+                        {define?.synonyms?.map((synonym) => {
                             return (
-                                <GradButton index={index} tag={synonym.color}>
-                                    {synonym.word}
+                                <GradButton index={index} tag={synonym?.color}>
+                                    {synonym?.word}
                                 </GradButton>
                             );
                         })}

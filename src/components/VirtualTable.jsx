@@ -163,7 +163,7 @@ export default function VirtualTable({ words }) {
 
     const rows = words.map((w) => {
         const totalSynonyms = w.definitions
-            .map((definition) => definition.synonyms.length)
+            .map((definition) => definition.synonyms?.length)
             .reduce((acc, count) => acc + count, 0);
         // total meaning
         const totalMeanings = w.definitions.length;
@@ -201,7 +201,7 @@ export default function VirtualTable({ words }) {
         if (w.definitions[1]) {
             let Definition = w.definitions[1];
             let partOfSpeech = Definition.part_of_speech;
-            let totalSynonyms = Definition.synonyms.length;
+            let totalSynonyms = Definition.synonyms?.length;
             totalSecondPositionSynonyms = totalSynonyms + " " + partOfSpeech;
         } else {
             totalSecondPositionSynonyms = 0;
@@ -212,7 +212,7 @@ export default function VirtualTable({ words }) {
         if (w.definitions[2]) {
             let Definition = w.definitions[2];
             let partOfSpeech = Definition.part_of_speech;
-            let totalSynonyms = Definition.synonyms.length;
+            let totalSynonyms = Definition.synonyms?.length;
             totalThirdPositionSynonyms = totalSynonyms + " " + partOfSpeech;
         } else {
             totalThirdPositionSynonyms = 0;
@@ -224,7 +224,7 @@ export default function VirtualTable({ words }) {
         if (w.definitions[3]) {
             let Definition = w.definitions[3];
             let partOfSpeech = Definition.part_of_speech;
-            let totalSynonyms = Definition.synonyms.length;
+            let totalSynonyms = Definition.synonyms?.length;
             totalForthPositionSynonyms = totalSynonyms + " " + partOfSpeech;
         } else {
             totalForthPositionSynonyms = 0;
@@ -235,7 +235,7 @@ export default function VirtualTable({ words }) {
         if (w.definitions[4]) {
             let Definition = w.definitions[4];
             let partOfSpeech = Definition.part_of_speech;
-            let totalSynonyms = Definition.synonyms.length;
+            let totalSynonyms = Definition.synonyms?.length;
             totalFifthPositionSynonyms = totalSynonyms + " " + partOfSpeech;
         } else {
             totalFifthPositionSynonyms = 0;

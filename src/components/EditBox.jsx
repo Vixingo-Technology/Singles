@@ -13,6 +13,7 @@ import React, { useState } from "react";
 import WordDetails from "./WordDetails";
 import DOMPurify from "dompurify";
 import ChildModal from "./modals/ChildModal";
+import NewMeaningGroup from "./buttons/NewMeaningGroup";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -28,6 +29,12 @@ function EditBox({ setOpen, open, rowData }) {
     function createMarkup() {
         return { __html: rowData?.obj.phonetics };
     }
+    // Delete a group
+    const handleDeleteDefinition = async (definitionId) => {
+        await deleteDefinition(definitionId);
+        const updatedWord = await getWord(selectedWord.name);
+        setSelectedWord(updatedWord.word);
+    };
 
     return (
         <React.Fragment>
@@ -85,6 +92,9 @@ function EditBox({ setOpen, open, rowData }) {
                                     <WordDetails
                                         index={index}
                                         define={define}
+                                        onDeleteDefinition={
+                                            handleDeleteDefinition
+                                        }
                                     />
                                 </>
                             );
@@ -92,6 +102,10 @@ function EditBox({ setOpen, open, rowData }) {
                         {/* <WordDetails index={1} />
                         <WordDetails index={2} /> */}
                     </DialogContentText>
+                    <NewMeaningGroup
+                        wordName={rowData?.name}
+                        define={rowData?.obj.definitions}
+                    />
                 </DialogContent>
                 <DialogActions
                     sx={{ backgroundColor: "transparent", padding: 2 }}
