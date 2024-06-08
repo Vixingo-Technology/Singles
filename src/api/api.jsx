@@ -35,3 +35,15 @@ export const updateDefinition = async (definitionId, updates) => {
 export const deleteDefinition = async (definitionId) => {
     await axios.delete(`${BASE_URL}/definitions/${definitionId}`);
 };
+
+export const createSynonym = async (definitionId, synonym) => {
+    const response = await axios.post(
+        `${BASE_URL}/definitions/${definitionId}/synonyms`,
+        synonym
+    );
+    return response.data;
+};
+
+export const deleteSynonym = async (synonymId) => {
+    await axios.delete(`${BASE_URL}/synonyms/${synonymId}`);
+};

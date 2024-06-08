@@ -5,7 +5,6 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Singles from "../components/Singles";
-import WordManager from "../components/WordManager";
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -60,7 +59,7 @@ function WordTabs() {
                     <Singles />
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={1}>
-                    <WordManager />
+                    other tab
                 </CustomTabPanel>
             </Box>
         </>

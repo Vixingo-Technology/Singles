@@ -9,10 +9,16 @@ import Paper from "@mui/material/Paper";
 import { TableVirtuoso } from "react-virtuoso";
 import axios from "axios";
 import { IconButton, Typography } from "@mui/material";
-import { ContentCopy, OpenInNew } from "@mui/icons-material";
+import {
+    Checklist,
+    ContentCopy,
+    OpenInNew,
+    Visibility,
+} from "@mui/icons-material";
 import EditBox from "./EditBox";
 import { useSelector } from "react-redux";
 import CopyButton from "./buttons/CopyButton";
+import { WordContext } from "../contexts/WordContext";
 
 function createData(
     name,
@@ -91,11 +97,6 @@ const columns = [
         label: "Opened/Modified ",
         dataKey: "Mod",
     },
-    {
-        width: 70,
-        label: "Adjust Synonym(s)",
-        dataKey: "adjust",
-    },
 ];
 
 const VirtuosoTableComponents = {
@@ -148,7 +149,7 @@ function fixedHeaderContent() {
 }
 
 export default function VirtualTable({ words }) {
-    const [mod, setMod] = React.useState("opened");
+    const [mod, setMod] = React.useState("");
     const [adjust, setAdjust] = React.useState(true);
 
     // API calling
@@ -258,11 +259,20 @@ export default function VirtualTable({ words }) {
     //dialog
     const [open, setOpen] = React.useState(false);
     const [rowData, setRowData] = React.useState();
+    const { defOrder, setDefOrder } = React.useContext(WordContext);
 
     const handleClickOpen = (row) => {
         setOpen(true);
         setRowData(row);
+        // setMod("opened");
+        setDefOrder(transformArray);
     };
+
+    React.useEffect(() => {
+        const transformArray = () => {
+            return rowData?.obj.definitions.map((_, index) => index + 1);
+        };
+    });
 
     // Row content
     function rowContent(_index, row) {
@@ -281,6 +291,7 @@ export default function VirtualTable({ words }) {
                             className="invisible group-hover:visible "
                             onClick={() => {
                                 handleClickOpen(row);
+                                // setdefOrder(rowData?.obj.definitions)
                             }}
                         >
                             <OpenInNew color="primary" fontSize="24px" />
@@ -303,7 +314,7 @@ export default function VirtualTable({ words }) {
                         </IconButton>
                     </div>
                 </TableCell>
-                {columns.slice(1).map((column) => (
+                {columns.slice(1, 9).map((column) => (
                     <TableCell
                         key={column.dataKey}
                         align={column.numeric || false ? "right" : "left"}
@@ -311,6 +322,15 @@ export default function VirtualTable({ words }) {
                         {row[column.dataKey]}
                     </TableCell>
                 ))}
+                <TableCell>
+                    {mod === "opened" ? (
+                        <Visibility color="warning" />
+                    ) : mod === "modified" ? (
+                        <Checklist color="primary" />
+                    ) : (
+                        ""
+                    )}
+                </TableCell>
             </React.Fragment>
         );
     }

@@ -9,12 +9,13 @@ import {
     Slide,
     Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import WordDetails from "./WordDetails";
 import DOMPurify from "dompurify";
 import ChildModal from "./modals/ChildModal";
 import NewMeaningGroup from "./buttons/NewMeaningGroup";
-
+import { Reorder } from "framer-motion";
+import { WordContext } from "../contexts/WordContext";
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -36,6 +37,19 @@ function EditBox({ setOpen, open, rowData }) {
         setSelectedWord(updatedWord.word);
     };
 
+    // reorder
+    const { setDefOrder, defOrder } = useContext(WordContext);
+
+    // const [defCount, setDefCount] = useState([1, 2, 3, 4]);
+
+    // useEffect(() => {
+    //     const transformArray = () => {
+    //         return rowData?.obj.definitions.map((_, index) => index + 1);
+    //     };
+    //     console.log(transformArray(), "eb");
+    //     setDefCount(transformArray());
+    //     // setDefOrder(transformArray());
+    // });
     return (
         <React.Fragment>
             <Dialog
@@ -86,19 +100,30 @@ function EditBox({ setOpen, open, rowData }) {
                         id="alert-dialog-slide-description"
                         sx={{ width: "100%" }}
                     >
-                        {rowData?.obj.definitions.map((define, index) => {
-                            return (
-                                <>
-                                    <WordDetails
-                                        index={index}
-                                        define={define}
-                                        onDeleteDefinition={
-                                            handleDeleteDefinition
-                                        }
-                                    />
-                                </>
-                            );
-                        })}
+                        <Reorder.Group
+                            values={defOrder}
+                            onReorder={setDefOrder}
+                            axis="y"
+                        >
+                            {rowData?.obj.definitions.map((define, index) => {
+                                return (
+                                    <>
+                                        <Reorder.Item
+                                            key={define.id}
+                                            value={define}
+                                        >
+                                            <WordDetails
+                                                index={index}
+                                                define={define}
+                                                onDeleteDefinition={
+                                                    handleDeleteDefinition
+                                                }
+                                            />
+                                        </Reorder.Item>
+                                    </>
+                                );
+                            })}
+                        </Reorder.Group>
                         {/* <WordDetails index={1} />
                         <WordDetails index={2} /> */}
                     </DialogContentText>

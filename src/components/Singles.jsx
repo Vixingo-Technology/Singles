@@ -9,12 +9,14 @@ import VirtualTable from "./VirtualTable";
 import EditBox from "./EditBox";
 import axios from "axios";
 import { WordContext } from "../contexts/WordContext";
+
 function Singles() {
     // api calling
     const total_results = 50;
     const [start_word, setStart_word] = React.useState("A");
     const api = "https://api-zcg7jiz4mq-uc.a.run.app/words";
     // const [words, setWords] = React.useState([]);
+
     const { words, setWords } = useContext(WordContext);
 
     const getwords = () => {

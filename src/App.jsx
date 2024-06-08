@@ -9,10 +9,12 @@ import { WordContext } from "./contexts/WordContext";
 function App() {
     const [words, setWords] = useState([]);
     const [editSum, setEditSum] = useState();
-
+    const [defOrder, setDefOrder] = useState([1, 2, 3, 4, 5]);
     return (
         <>
-            <WordContext.Provider value={{ words, setWords, setEditSum }}>
+            <WordContext.Provider
+                value={{ words, setWords, defOrder, setDefOrder }}
+            >
                 <WordTabs />
             </WordContext.Provider>
         </>
