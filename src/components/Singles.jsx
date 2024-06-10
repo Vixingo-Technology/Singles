@@ -41,15 +41,49 @@ function Singles() {
         // console.log(words[0].name);
     });
 
+    //multi filter
+    const [selectedFilter, setSelectedFilter] = useState([]);
+    const [filteredItems, setFilteredItems] = useState(words);
+
+    let filters = ["noun", "adverb", "verb", "adjective", "other"];
+
+    const handleClick = (category) => {
+        if (selectedFilter.includes(category)) {
+            setSelectedFilter(selectedFilter.filter((e) => e !== category));
+        } else {
+            setSelectedFilter([...selectedFilter, category]);
+        }
+    };
+
+    useEffect(() => {
+        filterItems();
+    }, [selectedFilter]);
+
+    const filterItems = () => {
+        if (selectedFilter.length > 0) {
+            let tempItems = selectedFilter.map((selectedCategory) => {
+                let filteredData = words?.filter(
+                    (word) =>
+                        word.definitions[0]?.part_of_speech === selectedCategory
+                );
+                return filteredData;
+            });
+            let filteredData = tempItems.flat();
+            setFilteredItems(filteredData);
+        } else {
+            setFilteredItems([...words]);
+        }
+    };
+
     // search
     const [searchTerm, setSearchTerm] = React.useState("");
-    const [searchResults, setSearchResults] = React.useState(words);
-    const [type, setType] = useState([]);
+    const [searchResults, setSearchResults] = React.useState(filteredItems);
+
     const handleSearch = (e) => {
         setSearchTerm(e.target.value);
     };
     useEffect(() => {
-        let searchedData = words?.filter((e) => {
+        let searchedData = filteredItems?.filter((e) => {
             const lowerCaseTitle = e.name?.toLowerCase();
             if (lowerCaseTitle.includes(searchTerm?.toLowerCase())) {
                 return true;
@@ -58,28 +92,7 @@ function Singles() {
         });
 
         setSearchResults(searchedData);
-    }, [searchTerm, words]);
-
-    //multi filter
-    const [filters, setFilters] = useState([
-        "noun",
-        "adverb",
-        "verb",
-        "adjective",
-        "other",
-    ]);
-    useEffect(() => {
-        let filteredData = words?.filter((e) => {
-            if (type.length === 0) {
-                return true;
-            }
-            if (type.includes(e.type)) {
-                return true;
-            }
-            return false;
-        });
-        setSearchResults(filteredData);
-    }, [type, words]);
+    }, [searchTerm, filteredItems]);
 
     return (
         <>
@@ -132,13 +145,30 @@ function Singles() {
                             />
                         </Box>{" "}
                         <Box sx={{ display: "flex", gap: "12px" }}>
-                            <ToggleButton setType={setType} type={type}>
+                            {filters.map((category, idx) => (
+                                <>
+                                    <ToggleButton
+                                        key={idx}
+                                        handleClick={() =>
+                                            handleClick(category)
+                                        }
+                                        check={
+                                            selectedFilter.includes(category)
+                                                ? true
+                                                : false
+                                        }
+                                    >
+                                        {category}
+                                    </ToggleButton>
+                                </>
+                            ))}
+                            {/* <ToggleButton setType={setType} type={type}>
                                 Nouns
                             </ToggleButton>
                             <ToggleButton>Verb</ToggleButton>
                             <ToggleButton>Adj</ToggleButton>
                             <ToggleButton>Adv</ToggleButton>
-                            <ToggleButton>other</ToggleButton>
+                            <ToggleButton>other</ToggleButton> */}
                         </Box>
                     </Box>
                 </Box>

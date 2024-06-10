@@ -1,14 +1,8 @@
 import { Check } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-function ToggleButton({ children, setType, type }) {
-    const [check, setCheck] = useState(false);
-    const handleClick = () => {
-        setCheck(!check);
-        setType([...type, children]);
-    };
-
+function ToggleButton({ children, handleClick, check }) {
     return (
         <>
             <Button
