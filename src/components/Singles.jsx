@@ -3,8 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Search } from "@mui/icons-material";
 import ToggleButton from "./buttons/ToggleButton";
-import SingleTable from "./SingleTable";
-import DataTable from "./DataTable";
+
 import VirtualTable from "./VirtualTable";
 import EditBox from "./EditBox";
 import axios from "axios";
@@ -174,8 +173,6 @@ function Singles() {
                 </Box>
             </Box>
             <Box sx={{ maxWidth: "1300px", margin: "0 auto" }}>
-                {/* <SingleTable /> */}
-                {/* <DataTable /> */}
                 <VirtualTable words={searchResults} />
             </Box>
         </>
