@@ -16,7 +16,7 @@ import {
     Visibility,
 } from "@mui/icons-material";
 import EditBox from "./EditBox";
-import { useSelector } from "react-redux";
+
 import CopyButton from "./buttons/CopyButton";
 import { WordContext } from "../contexts/WordContext";
 
@@ -152,38 +152,12 @@ export default function VirtualTable({ words }) {
     const [mod, setMod] = React.useState("");
     const [adjust, setAdjust] = React.useState(true);
 
-    // API calling
-
-    // table setting
-    // const rows = Array.from({ length: 200 }, (_, index) => {
-    //     // const randomSelection = sample[Math.floor(Math.random() * sample.length)];
-    //     // console.log(words[index]);
-
-    //     return createData(index, ...tableData);
-    // });
-
     const rows = words.map((w) => {
         const totalSynonyms = w.definitions
             .map((definition) => definition.synonyms?.length)
             .reduce((acc, count) => acc + count, 0);
         // total meaning
         const totalMeanings = w.definitions.length;
-
-        // const totalFirstPositionSynonyms = w.definitions[0].synonyms.length;
-
-        // const totalSecondPositionSynonyms = w.definitions[1]
-        //     ? w.definitions[1].synonyms.length
-        //     : 0;
-
-        // const totalThirdPositionSynonyms = w.definitions[2]
-        //     ? w.definitions[2].synonyms.length
-        //     : 0;
-        // const totalForthPositionSynonyms = w.definitions[3]
-        //     ? w.definitions[3].synonyms.length
-        //     : 0;
-        // const totalFifthPositionSynonyms = w.definitions[4]
-        //     ? w.definitions[4].synonyms.length
-        //     : 0;
 
         // Check if a second definition exists
         let totalFirstPositionSynonyms;
@@ -306,12 +280,9 @@ export default function VirtualTable({ words }) {
                         >
                             {row.name}
                         </Typography>
-                        <IconButton
-                            size="small"
-                            className="invisible group-hover:visible"
-                        >
+                        <div className="invisible group-hover:visible">
                             <CopyButton word={row.name} />
-                        </IconButton>
+                        </div>
                     </div>
                 </TableCell>
                 {columns.slice(1, 9).map((column) => (
@@ -322,7 +293,7 @@ export default function VirtualTable({ words }) {
                         {row[column.dataKey]}
                     </TableCell>
                 ))}
-                <TableCell>
+                <TableCell key={row.id}>
                     {mod === "opened" ? (
                         <Visibility color="warning" />
                     ) : mod === "modified" ? (

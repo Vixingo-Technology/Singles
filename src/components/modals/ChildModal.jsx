@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import { Chip, TextField } from "@mui/material";
+import { WordContext } from "../../contexts/WordContext";
 
 const style = {
     position: "absolute",
@@ -20,6 +21,7 @@ const style = {
 };
 
 export default function ChildModal({ wordName }) {
+    const { editSum, setEditSum } = React.useContext(WordContext);
     const [open, setOpen] = React.useState(false);
     const [conValue, setConValue] = React.useState("");
     const handleOpen = () => {
@@ -45,12 +47,12 @@ export default function ChildModal({ wordName }) {
     // };
 
     const [finalValue, setFinalValue] = React.useState(
-        `ADDED:\n${addedArray}\nREMOVED:${removedArray}\n\nEDITED`
+        `ADDED:\n${editSum}\nREMOVED:${removedArray}\n\nEDITED`
     );
 
     React.useEffect(() => {
         // findWord(wordName);
-        console.log(WordDetails, "WordDetails");
+        console.log(editSum, "sum");
     }, [wordName]);
 
     return (

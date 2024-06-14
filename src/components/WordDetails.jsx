@@ -1,5 +1,5 @@
 import { Box, IconButton, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import GradButton from "./buttons/GradButton";
 import {
     AddCircleOutline,
@@ -12,10 +12,14 @@ import {
 import GLButton from "./buttons/GLButton";
 import ChildModal from "./modals/ChildModal";
 import { deleteDefinition } from "../api/api";
+import { WordContext } from "../contexts/WordContext";
 
-function WordDetails({ index, define, onDeleteDefinition }) {
+function WordDetails({ index, define, onDeleteDefinition, wordName }) {
+    const { setWords } = useContext(WordContext);
+
     // const [define, setDefine] = useState(def);
     const [editing, setEditing] = useState(false);
+    const { editSum, setEditSum } = useContext(WordContext);
 
     const handleEditing = () => {
         setEditing(!editing);
@@ -48,18 +52,52 @@ function WordDetails({ index, define, onDeleteDefinition }) {
         define.synonyms.push({ word: newValue, color: "white" });
         setNewWord(!newWord);
         setNewValue(null);
+        setEditSum(...newValue);
     };
     // Update defination
 
-    const handleUpdateSubmit = (e) => {
-        e.preventDefault();
-        onUpdateDefinition(updateDefinitionId, {
-            meaning: updateMeaning,
-            part_of_speech: updatePartOfSpeech,
+    // const handleUpdateSubmit = (e) => {
+    //     e.preventDefault();
+    //     onUpdateDefinition(updateDefinitionId, {
+    //         meaning: updateMeaning,
+    //         part_of_speech: updatePartOfSpeech,
+    //     });
+    //     setUpdateDefinitionId("");
+    //     setUpdateMeaning("");
+    //     setUpdatePartOfSpeech("");
+    // };
+
+    const updateDefinition = (wordName, definitionId, newDefinition) => {
+        setWords((prevWords) => {
+            return prevWords.map((word) => {
+                if (word.name === wordName) {
+                    return {
+                        ...word,
+                        definitions: word.definitions.map((definition) => {
+                            if (definition.id === definitionId) {
+                                return {
+                                    ...definition,
+                                    ...newDefinition,
+                                };
+                            }
+                            return definition;
+                        }),
+                    };
+                }
+                return word;
+            });
         });
-        setUpdateDefinitionId("");
-        setUpdateMeaning("");
-        setUpdatePartOfSpeech("");
+    };
+
+    const handleUpdateDefinition = () => {
+        const newDefinition = {
+            meaning: group.meaning,
+            part_of_speech: group.pos,
+            // synonyms: [
+            // ],
+        };
+        updateDefinition(wordName, define.id, newDefinition);
+        setEditing(!editing);
     };
 
     // delete defination
@@ -159,7 +197,7 @@ function WordDetails({ index, define, onDeleteDefinition }) {
                             </IconButton>
                             <IconButton
                                 onClick={() => {
-                                    handleUpdateSubmit;
+                                    handleUpdateDefinition;
                                 }}
                             >
                                 <Check color="primary" />
@@ -184,7 +222,12 @@ function WordDetails({ index, define, onDeleteDefinition }) {
                     >
                         {define?.synonyms?.map((synonym) => {
                             return (
-                                <GradButton index={index} tag={synonym?.color}>
+                                <GradButton
+                                    index={index}
+                                    key={synonym.id}
+                                    tag={synonym?.color}
+                                    wordName={wordName}
+                                >
                                     {synonym?.word}
                                 </GradButton>
                             );

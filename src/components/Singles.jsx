@@ -8,6 +8,7 @@ import VirtualTable from "./VirtualTable";
 import EditBox from "./EditBox";
 import axios from "axios";
 import { WordContext } from "../contexts/WordContext";
+import wordsJson from "../words.json";
 
 function Singles() {
     // api calling
@@ -19,26 +20,31 @@ function Singles() {
     const { words, setWords } = useContext(WordContext);
 
     const getwords = () => {
-        const queryParam = "?offset=" + start_word + "&limit=" + total_results;
-        const finalURL = api + queryParam;
-
-        axios
-            .get(finalURL)
-            .then((res) => {
-                const apiRes = res?.data.words;
-                const margeData = [...words, ...apiRes];
-                setWords(margeData);
-                setStart_word(apiRes[apiRes.length - 1].name);
-            })
-            .catch((err) => {
-                console.log("error while loading words", err);
-            });
+        setWords(wordsJson.words);
     };
+
+    // const getwords = () => {
+    //     const queryParam = "?offset=" + start_word + "&limit=" + total_results;
+    //     const finalURL = api + queryParam;
+
+    //     axios
+    //         .get(finalURL)
+    //         .then((res) => {
+    //             const apiRes = res?.data.words;
+    //             const margeData = [...words, ...apiRes];
+    //             setWords(margeData);
+    //             setStart_word(apiRes[apiRes.length - 1].name);
+    //         })
+    //         .catch((err) => {
+    //             console.log("error while loading words", err);
+    //         });
+    // };
 
     React.useEffect(() => {
         getwords();
+        console.log(words, wordsJson);
         // console.log(words[0].name);
-    });
+    }, []);
 
     //multi filter
     const [selectedFilter, setSelectedFilter] = useState([]);
@@ -145,35 +151,25 @@ function Singles() {
                         </Box>{" "}
                         <Box sx={{ display: "flex", gap: "12px" }}>
                             {filters.map((category, idx) => (
-                                <>
-                                    <ToggleButton
-                                        key={idx}
-                                        handleClick={() =>
-                                            handleClick(category)
-                                        }
-                                        check={
-                                            selectedFilter.includes(category)
-                                                ? true
-                                                : false
-                                        }
-                                    >
-                                        {category}
-                                    </ToggleButton>
-                                </>
+                                <ToggleButton
+                                    key={idx}
+                                    handleClick={() => handleClick(category)}
+                                    check={
+                                        selectedFilter.includes(category)
+                                            ? true
+                                            : false
+                                    }
+                                >
+                                    {category}
+                                </ToggleButton>
                             ))}
-                            {/* <ToggleButton setType={setType} type={type}>
-                                Nouns
-                            </ToggleButton>
-                            <ToggleButton>Verb</ToggleButton>
-                            <ToggleButton>Adj</ToggleButton>
-                            <ToggleButton>Adv</ToggleButton>
-                            <ToggleButton>other</ToggleButton> */}
                         </Box>
                     </Box>
                 </Box>
             </Box>
             <Box sx={{ maxWidth: "1300px", margin: "0 auto" }}>
-                <VirtualTable words={searchResults} />
+                {/* use "searchResults" in the words attribute when using real API */}
+                <VirtualTable words={words} />
             </Box>
         </>
     );

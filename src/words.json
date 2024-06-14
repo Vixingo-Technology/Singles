@@ -1,0 +1,493 @@
+{
+    "words": [
+        {
+            "name": "boy",
+            "rank": 530,
+            "phonetics": "<span>[ boi  ]</span>",
+            "bookmarked": false,
+            "modified": false,
+            "definitions": [
+                {
+                    "id": "10233",
+                    "meaning": "young man",
+                    "part_of_speech": "noun",
+                    "synonyms": [
+                        {
+                            "id": "69318",
+                            "word": "biter",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69333",
+                            "word": "buck",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69322",
+                            "word": "cadet",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69325",
+                            "word": "chap",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69306",
+                            "word": "child",
+                            "color": "Red"
+                        },
+                        {
+                            "id": "69314",
+                            "word": "dude",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69316",
+                            "word": "feller",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69307",
+                            "word": "fellow",
+                            "color": "Red"
+                        },
+                        {
+                            "id": "69326",
+                            "word": "gent",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69308",
+                            "word": "guy",
+                            "color": "Red"
+                        },
+                        {
+                            "id": "69338",
+                            "word": "juvenile",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69337",
+                            "word": "kid",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69309",
+                            "word": "lad",
+                            "color": "Red"
+                        },
+                        {
+                            "id": "69328",
+                            "word": "male",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69334",
+                            "word": "master",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69319",
+                            "word": "minor",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69336",
+                            "word": "punk",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69331",
+                            "word": "pup",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69315",
+                            "word": "puppy",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69321",
+                            "word": "runt",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69323",
+                            "word": "schoolboy",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69317",
+                            "word": "schoolgirl",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69329",
+                            "word": "son",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69335",
+                            "word": "sonny",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69313",
+                            "word": "tadpole",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69324",
+                            "word": "tyke",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69312",
+                            "word": "whippersnapper",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "69310",
+                            "word": "youngster",
+                            "color": "Red"
+                        },
+                        {
+                            "id": "69311",
+                            "word": "youth",
+                            "color": "Red"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "dog",
+            "rank": 957,
+            "phonetics": "<span>[ dawg, dog  ]</span>",
+            "bookmarked": false,
+            "modified": false,
+            "definitions": [
+                {
+                    "id": "28382",
+                    "meaning": "canine mammal",
+                    "part_of_speech": "noun",
+                    "synonyms": [
+                        {
+                            "id": "197698",
+                            "word": "bitch",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197690",
+                            "word": "cur",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197694",
+                            "word": "doggy",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197701",
+                            "word": "hound",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197699",
+                            "word": "mongrel",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197700",
+                            "word": "mutt",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197697",
+                            "word": "pooch",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197685",
+                            "word": "pup",
+                            "color": "Red"
+                        },
+                        {
+                            "id": "197686",
+                            "word": "puppy",
+                            "color": "Red"
+                        },
+                        {
+                            "id": "197692",
+                            "word": "retriever",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197689",
+                            "word": "tyke",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197693",
+                            "word": "whelp",
+                            "color": "Orange"
+                        }
+                    ]
+                },
+                {
+                    "id": "28383",
+                    "meaning": "chase after, bother",
+                    "part_of_speech": "verb",
+                    "synonyms": [
+                        {
+                            "id": "197717",
+                            "word": "accompany",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197718",
+                            "word": "aggravate",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197724",
+                            "word": "beset",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197706",
+                            "word": "bother",
+                            "color": "Red"
+                        },
+                        {
+                            "id": "197720",
+                            "word": "distress",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197711",
+                            "word": "dragoon",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197710",
+                            "word": "drive",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197712",
+                            "word": "follow",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197709",
+                            "word": "goose",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197702",
+                            "word": "haunt",
+                            "color": "Red"
+                        },
+                        {
+                            "id": "197703",
+                            "word": "hound",
+                            "color": "Red"
+                        },
+                        {
+                            "id": "197727",
+                            "word": "hunt",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197716",
+                            "word": "jobber",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197719",
+                            "word": "nag",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197714",
+                            "word": "persecute",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197721",
+                            "word": "pester",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197704",
+                            "word": "plague",
+                            "color": "Red"
+                        },
+                        {
+                            "id": "197715",
+                            "word": "pursue",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197705",
+                            "word": "shadow",
+                            "color": "Red"
+                        },
+                        {
+                            "id": "197707",
+                            "word": "shag",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197725",
+                            "word": "tag",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197722",
+                            "word": "tail",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197726",
+                            "word": "tailgate",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197708",
+                            "word": "tease",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197713",
+                            "word": "trail",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197723",
+                            "word": "trouble",
+                            "color": "Orange"
+                        }
+                    ]
+                },
+                {
+                    "id": "28384",
+                    "meaning": "sly, dastardly person",
+                    "part_of_speech": "noun",
+                    "synonyms": [
+                        {
+                            "id": "197728",
+                            "word": "cad",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197733",
+                            "word": "rotter",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197734",
+                            "word": "rounder",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197736",
+                            "word": "stinker",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197739",
+                            "word": "worm",
+                            "color": "Orange"
+                        }
+                    ]
+                },
+                {
+                    "id": "28385",
+                    "meaning": "cylindrical meat sausage",
+                    "part_of_speech": "noun",
+                    "synonyms": []
+                },
+                {
+                    "id": "28386",
+                    "meaning": "derelict",
+                    "part_of_speech": "noun",
+                    "synonyms": [
+                        {
+                            "id": "197730",
+                            "word": "looser",
+                            "color": "Orange"
+                        },
+                        {
+                            "id": "197740",
+                            "word": "wretch",
+                            "color": "Orange"
+                        }
+                    ]
+                },
+                {
+                    "id": "28387",
+                    "meaning": "very bad person",
+                    "part_of_speech": "noun",
+                    "synonyms": [
+                        {
+                            "id": "197731",
+                            "word": "lowlife",
+                            "color": "Orange"
+                        }
+                    ]
+                },
+                {
+                    "id": "28388",
+                    "meaning": "favorite thing, person",
+                    "part_of_speech": "noun",
+                    "synonyms": [
+                        {
+                            "id": "197732",
+                            "word": "pet",
+                            "color": "Orange"
+                        }
+                    ]
+                },
+                {
+                    "id": "28391",
+                    "meaning": "avoid, get out of responsibility",
+                    "part_of_speech": "verb",
+                    "synonyms": [
+                        {
+                            "id": "197735",
+                            "word": "shirk",
+                            "color": "Orange"
+                        }
+                    ]
+                },
+                {
+                    "id": "28393",
+                    "meaning": "cylindrical meat sausage, frankfurter",
+                    "part_of_speech": "noun",
+                    "synonyms": [
+                        {
+                            "id": "197737",
+                            "word": "weenie",
+                            "color": "Orange"
+                        }
+                    ]
+                },
+                {
+                    "id": "28394",
+                    "meaning": "frankfurter",
+                    "part_of_speech": "noun",
+                    "synonyms": [
+                        {
+                            "id": "197738",
+                            "word": "wiener",
+                            "color": "Orange"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -23,6 +23,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function EditBox({ setOpen, open, rowData }) {
     // const [rowData, setRowData] = useState();
     // console.log(rowData, "rowdata");
+    const { words, setWords } = useContext(WordContext);
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -99,6 +101,7 @@ function EditBox({ setOpen, open, rowData }) {
                     <DialogContentText
                         id="alert-dialog-slide-description"
                         sx={{ width: "100%" }}
+                        component={Box}
                     >
                         <Reorder.Group
                             values={defOrder}
@@ -109,12 +112,13 @@ function EditBox({ setOpen, open, rowData }) {
                                 return (
                                     <>
                                         <Reorder.Item
-                                            key={define.id}
+                                            key={index}
                                             value={define}
                                         >
                                             <WordDetails
                                                 index={index}
                                                 define={define}
+                                                wordName={rowData.name}
                                                 onDeleteDefinition={
                                                     handleDeleteDefinition
                                                 }

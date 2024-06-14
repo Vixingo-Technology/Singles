@@ -1,21 +1,54 @@
 import { Check, CloseRounded } from "@mui/icons-material";
 import ControlPointRoundedIcon from "@mui/icons-material/ControlPointRounded";
 import { Box, Button, IconButton, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { createDefinition } from "../../api/api";
+import { WordContext } from "../../contexts/WordContext";
 function NewMeaningGroup({ wordName, define }) {
+    const { setWords } = useContext(WordContext);
     const [editing, setEditing] = useState(false);
     const [group, setGroup] = useState({
         part_of_speech: "",
         meaning: "",
     });
 
-    const handleCreateDefinition = async (word, definition) => {
-        define.push(definition);
-        setGroup({ part_of_speech: "", meaning: "" });
+    // const handleCreateDefinition = async (word, definition) => {
+    //     define.push(definition);
+    //     setGroup({ part_of_speech: "", meaning: "" });
+    //     setEditing(!editing);
+    //     const data = await createDefinition(word, definition);
+    //     // console.log(data);
+    // };
+
+    const addDefinition = (wordName, newDefinition) => {
+        define.push(newDefinition);
+        setWords((prevWords) => {
+            return prevWords.map((word) => {
+                if (word.name === wordName) {
+                    return {
+                        ...word,
+                        definitions: [...word.definitions, newDefinition],
+                    };
+                }
+                return word;
+            });
+        });
+    };
+
+    // Example of adding a new definition to the word "boy"
+    const newDefinition = {
+        id: "99999",
+        meaning: group.meaning,
+        part_of_speech: group.part_of_speech,
+        synonyms: [
+            // { id: "12345", word: "kid", color: "Orange" },
+        ],
+    };
+
+    const handleAddDefinition = (wordName) => {
+        addDefinition(wordName, newDefinition);
         setEditing(!editing);
-        const data = await createDefinition(word, definition);
-        // console.log(data);
+        setGroup({ part_of_speech: "", meaning: "" });
     };
 
     return (
@@ -85,7 +118,7 @@ function NewMeaningGroup({ wordName, define }) {
                     </IconButton>
                     <IconButton
                         onClick={() => {
-                            handleCreateDefinition(wordName, group);
+                            handleAddDefinition(wordName);
                         }}
                     >
                         <Check color="primary" />
