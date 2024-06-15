@@ -53,10 +53,7 @@ export default function ChildModal({ wordName, setOpen1, open1 }) {
         )}\nREMOVED: \n${JSON.stringify(changes.deleted.toString())}\n\nEDITED`
     );
 
-    React.useEffect(() => {
-        // findWord(wordName);
-        console.log(changes, "changes");
-    }, [wordName]);
+    React.useEffect(() => {}, [wordName]);
 
     return (
         <React.Fragment>
