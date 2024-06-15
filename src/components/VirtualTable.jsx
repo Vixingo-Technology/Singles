@@ -231,12 +231,12 @@ export default function VirtualTable({ words }) {
     });
 
     //dialog
-    const [open, setOpen] = React.useState(false);
+    const [open1, setOpen1] = React.useState(false);
     const [rowData, setRowData] = React.useState();
     const { defOrder, setDefOrder } = React.useContext(WordContext);
 
     const handleClickOpen = (row) => {
-        setOpen(true);
+        setOpen1(true);
         setRowData(row);
         // setMod("opened");
         setDefOrder(transformArray);
@@ -314,7 +314,7 @@ export default function VirtualTable({ words }) {
                 fixedHeaderContent={fixedHeaderContent}
                 itemContent={rowContent}
             />
-            <EditBox open={open} setOpen={setOpen} rowData={rowData} />
+            <EditBox open1={open1} setOpen1={setOpen1} rowData={rowData} />
         </Paper>
     );
 }

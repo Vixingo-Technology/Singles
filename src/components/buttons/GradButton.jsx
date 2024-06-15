@@ -4,7 +4,8 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { Check } from "@mui/icons-material";
 import { WordContext } from "../../contexts/WordContext";
 function GradButton({ children, index, tag, wordName }) {
-    const { setWords } = useContext(WordContext);
+    const { setWords, setRemoved, removed, changes, setChanges } =
+        useContext(WordContext);
 
     const [value, setValue] = useState(children);
 
@@ -13,6 +14,7 @@ function GradButton({ children, index, tag, wordName }) {
         removeSynonym(wordName, children);
         alert(children + " removed");
         setValue(null);
+        setRemoved(children);
     };
 
     const removeSynonym = (wordName, synonymWord) => {
@@ -34,6 +36,8 @@ function GradButton({ children, index, tag, wordName }) {
                 return word;
             });
         });
+        changes.deleted.push(synonymWord);
+        console.log(changes);
     };
     return (
         <>

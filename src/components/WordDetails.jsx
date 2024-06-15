@@ -16,10 +16,12 @@ import { WordContext } from "../contexts/WordContext";
 
 function WordDetails({ index, define, onDeleteDefinition, wordName }) {
     const { setWords } = useContext(WordContext);
-
+    const [editMode, setEditMode] = useState(false);
+    const [mpos, setMpos] = useState(define.part_of_speech);
     // const [define, setDefine] = useState(def);
     const [editing, setEditing] = useState(false);
     const { editSum, setEditSum } = useContext(WordContext);
+    const [mmeaning, setMmeaning] = useState(define.meaning);
 
     const handleEditing = () => {
         setEditing(!editing);
@@ -32,8 +34,8 @@ function WordDetails({ index, define, onDeleteDefinition, wordName }) {
 
     // Adding new words
     const [newWord, setNewWord] = useState(false);
-    const [newValue, setNewValue] = useState();
-
+    const [newValue, setNewValue] = useState("");
+    const { changes, setChanges } = useContext(WordContext);
     const handleBlur = () => {
         setNewWord(!newWord);
         setNewValue(null);
@@ -51,9 +53,16 @@ function WordDetails({ index, define, onDeleteDefinition, wordName }) {
     const handleSaveUpdatedWord = () => {
         define.synonyms.push({ word: newValue, color: "white" });
         setNewWord(!newWord);
+        changes.added.push(newValue);
+
         setNewValue(null);
-        setEditSum(...newValue);
+        // setEditSum({
+        //     to: define.meaning,
+        //     pos: define.part_of_speech,
+        //     added: newValue,
+        // });
     };
+
     // Update defination
 
     // const handleUpdateSubmit = (e) => {
@@ -68,6 +77,10 @@ function WordDetails({ index, define, onDeleteDefinition, wordName }) {
     // };
 
     const updateDefinition = (wordName, definitionId, newDefinition) => {
+        define.part_of_speech = group.pos;
+        define.meaning = group.meaning;
+        setMpos(group.pos);
+        setMmeaning(group.meaning);
         setWords((prevWords) => {
             return prevWords.map((word) => {
                 if (word.name === wordName) {
@@ -87,6 +100,7 @@ function WordDetails({ index, define, onDeleteDefinition, wordName }) {
                 return word;
             });
         });
+        setEditing(!editing);
     };
 
     const handleUpdateDefinition = () => {
@@ -98,6 +112,7 @@ function WordDetails({ index, define, onDeleteDefinition, wordName }) {
         };
         updateDefinition(wordName, define.id, newDefinition);
         setEditing(!editing);
+        setMpos(group.pos);
     };
 
     // delete defination
@@ -124,7 +139,8 @@ function WordDetails({ index, define, onDeleteDefinition, wordName }) {
                             fontWeight: 400,
                         }}
                     >
-                        {define?.part_of_speech}
+                        {mpos}
+                        {/* {define?.part_of_speech} */}
                     </Typography>
                     <Typography
                         sx={{ color: "rgba(0,0,0,0.87)", fontWeight: "600" }}
@@ -195,11 +211,7 @@ function WordDetails({ index, define, onDeleteDefinition, wordName }) {
                             >
                                 <CloseRounded />
                             </IconButton>
-                            <IconButton
-                                onClick={() => {
-                                    handleUpdateDefinition;
-                                }}
-                            >
+                            <IconButton onClick={handleUpdateDefinition}>
                                 <Check color="primary" />
                             </IconButton>
                         </Box>

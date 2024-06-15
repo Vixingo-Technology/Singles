@@ -20,13 +20,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function EditBox({ setOpen, open, rowData }) {
+function EditBox({ setOpen1, open1, rowData }) {
     // const [rowData, setRowData] = useState();
     // console.log(rowData, "rowdata");
     const { words, setWords } = useContext(WordContext);
 
     const handleClose = () => {
-        setOpen(false);
+        setOpen1(false);
     };
 
     function createMarkup() {
@@ -55,7 +55,7 @@ function EditBox({ setOpen, open, rowData }) {
     return (
         <React.Fragment>
             <Dialog
-                open={open}
+                open={open1}
                 TransitionComponent={Transition}
                 keepMounted
                 onClose={handleClose}
@@ -152,7 +152,12 @@ function EditBox({ setOpen, open, rowData }) {
                         Cancel
                     </Button>
 
-                    <ChildModal wordName={rowData?.name} rowData={rowData} />
+                    <ChildModal
+                        wordName={rowData?.name}
+                        rowData={rowData}
+                        open1={open1}
+                        setOpen1={setOpen1}
+                    />
                 </DialogActions>
             </Dialog>
         </React.Fragment>

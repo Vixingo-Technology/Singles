@@ -20,8 +20,8 @@ const style = {
     borderRadius: "12px",
 };
 
-export default function ChildModal({ wordName }) {
-    const { editSum, setEditSum } = React.useContext(WordContext);
+export default function ChildModal({ wordName, setOpen1, open1 }) {
+    const { editSum, setEditSum, changes } = React.useContext(WordContext);
     const [open, setOpen] = React.useState(false);
     const [conValue, setConValue] = React.useState("");
     const handleOpen = () => {
@@ -29,12 +29,13 @@ export default function ChildModal({ wordName }) {
     };
     const handleClose = () => {
         setOpen(false);
+        setOpen1(false);
     };
 
     const handleChange = (e) => {};
 
     const [addedArray, setAddedArray] = React.useState([""]);
-    const [removedArray, setRemovedArray] = React.useState([]);
+    const { removed, setRemoved } = React.useContext(WordContext);
     const [WordDetails, setWordDetails] = React.useState();
 
     // const findWord = (wordName) => {
@@ -47,12 +48,14 @@ export default function ChildModal({ wordName }) {
     // };
 
     const [finalValue, setFinalValue] = React.useState(
-        `ADDED:\n${editSum}\nREMOVED:${removedArray}\n\nEDITED`
+        `ADDED:\nSynonyms:\n${JSON.stringify(
+            changes.added.toString()
+        )}\nREMOVED: \n${JSON.stringify(changes.deleted.toString())}\n\nEDITED`
     );
 
     React.useEffect(() => {
         // findWord(wordName);
-        console.log(editSum, "sum");
+        console.log(changes, "changes");
     }, [wordName]);
 
     return (
